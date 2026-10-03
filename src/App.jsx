@@ -3,6 +3,8 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import SetupPage from './pages/SetupPage.jsx';
+import DashboardPage from './pages/DashboardPage.jsx';
+import LeadDetailsPage from './pages/LeadDetailsPage.jsx';
 import ScoutingPage from './pages/ScoutingPage.jsx';
 import { startScout as startScoutRequest } from './api/scout.js';
 import { DEFAULT_FORM, ROUTES } from './constants.js';
@@ -50,7 +52,18 @@ export default function App() {
               />
             }
           />
-          <Route path={ROUTES.scouting} element={<ScoutingPage form={form} onBack={backToSetup} />} />
+                    <Route
+            path={ROUTES.scouting}
+            element={
+              <ScoutingPage
+                form={form}
+                onBack={backToSetup}
+                onViewOpportunities={() => navigate('/dashboard')}
+              />
+            }
+          />
+                    <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/leads/:id" element={<LeadDetailsPage />} />
           <Route path="*" element={<Navigate to={ROUTES.setup} replace />} />
         </Routes>
       </main>

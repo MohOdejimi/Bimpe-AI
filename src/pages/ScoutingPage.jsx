@@ -1,7 +1,7 @@
 import { Activity, Rocket, Sparkles } from 'lucide-react';
 import EngineTag from '../components/EngineTag.jsx';
 
-export default function ScoutingPage({ form, onBack }) {
+export default function ScoutingPage({ form, onBack, onViewOpportunities }) {
   return (
     <section className="scouting-stage">
       <EngineTag />
@@ -46,7 +46,7 @@ export default function ScoutingPage({ form, onBack }) {
           <button type="button" className="secondary-button" onClick={onBack}>
             Back to Setup
           </button>
-          <button type="button" className="start-button" onClick={onBack}>
+                    <button type="button" className="start-button" onClick={onViewOpportunities}>
             <Rocket size={20} />
             View Opportunities
           </button>

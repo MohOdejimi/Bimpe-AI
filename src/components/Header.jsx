@@ -20,6 +20,7 @@ export default function Header() {
       <nav className="main-nav" aria-label="Main navigation">
         <NavItem to={ROUTES.setup} label="Scout Setup" />
         <NavItem to={ROUTES.scouting} label="Live Scouting" />
+                <NavItem to="/dashboard" label="Pipeline" />
       </nav>
 
       <button type="button" className="profile-button" aria-label="Profile">

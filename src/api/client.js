@@ -7,7 +7,8 @@ export async function request(path, options = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed (${response.status})`);
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.error || `Request failed with status ${response.status}`);
   }
 
   return response.json();

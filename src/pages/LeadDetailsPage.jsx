@@ -9,7 +9,7 @@ import {
   Loader2,
   MessageSquareText,
 } from 'lucide-react';
-import { getLeadById, updateLeadStatus } from '../api';
+import { getLeadById, updateLeadStatus } from '../api/leads.js';
 import { IntentBadge } from './DashboardPage';
 
 export default function LeadDetailsPage() {
