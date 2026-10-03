@@ -4,6 +4,7 @@
  */
 
 import Business from '../models/Business.js';
+import Demo from '../models/Demo.js';
 import Lead from '../models/Lead.js';
 import { findOpportunities } from '../services/discovery.service.js';
 import { analyzePost } from '../services/ai-analysis.service.js';
@@ -28,6 +29,43 @@ export const startScout = async (req, res) => {
 
     // 2. Discover candidate posts
     const candidatePosts = await findOpportunities(business);
+
+    // Store discovered posts for demo browsing; upsert prevents duplicates per source.
+    const demoPosts = candidatePosts.map((post) => {
+      const externalId = post.id ?? post.url;
+
+      if (!externalId) {
+        throw new Error('Each discovered post must have an id or url');
+      }
+
+      return {
+        externalId: String(externalId),
+        source: post.source,
+        username: post.username,
+        text: post.text,
+        location: post.location,
+        url: post.url,
+        postedAt: post.postedAt,
+      };
+    });
+
+    if (demoPosts.length > 0) {
+      await Demo.bulkWrite(
+        demoPosts.map((post) => ({
+          updateOne: {
+            filter: { source: post.source, externalId: post.externalId },
+            update: { $set: post },
+            upsert: true,
+          },
+        }))
+      );
+    }
+
+    const storedDemoPosts = demoPosts.length
+      ? await Demo.find({
+          $or: demoPosts.map(({ source, externalId }) => ({ source, externalId })),
+        }).sort({ postedAt: -1 })
+      : [];
 
     const savedLeads = [];
 
@@ -61,6 +99,8 @@ export const startScout = async (req, res) => {
     return res.status(200).json({
       message: 'Scout discovery completed',
       business,
+      totalCandidates: storedDemoPosts.length,
+      demoOpportunities: storedDemoPosts,
       totalDiscovered: savedLeads.length,
       leads: savedLeads,
     });
