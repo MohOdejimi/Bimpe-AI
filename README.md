@@ -57,4 +57,4 @@ POST /api/scout/start
 }
 ```
 
-Call it from `startScout` in `src/App.jsx`.
+Form fields start empty and show placeholders. Call it from `startScout` in `src/App.jsx`.

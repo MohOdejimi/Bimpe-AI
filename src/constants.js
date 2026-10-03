@@ -7,9 +7,9 @@ export const ROUTES = {
 };
 
 export const DEFAULT_FORM = {
-  whatTheySell: 'Websites for restaurants',
-  targetCustomer: 'Restaurants in Lagos',
-  name: 'Chizu',
-  phone: '+234 812 345 6789',
+  whatTheySell: '',
+  targetCustomer: '',
+  name: '',
+  phone: '',
   highIntentOnly: true,
 };

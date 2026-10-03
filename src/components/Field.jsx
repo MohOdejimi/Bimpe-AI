@@ -1,6 +1,6 @@
 import { useId } from 'react';
 
-export default function Field({ icon, title, helper, value, onChange, compact = false, type = 'text' }) {
+export default function Field({ icon, title, helper, value, onChange, placeholder, compact = false, type = 'text' }) {
   const id = useId();
 
   return (
@@ -16,6 +16,7 @@ export default function Field({ icon, title, helper, value, onChange, compact = 
         id={id}
         className="field-input"
         type={type}
+        placeholder={placeholder}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         required

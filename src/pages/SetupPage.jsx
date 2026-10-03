@@ -38,6 +38,7 @@ export default function SetupPage({ form, update, onSubmit }) {
             icon={<Tag size={19} />}
             title="What do you sell?"
             helper="Core Offering"
+            placeholder="e.g. Websites for restaurants"
             value={form.whatTheySell}
             onChange={(value) => update('whatTheySell', value)}
           />
@@ -46,6 +47,7 @@ export default function SetupPage({ form, update, onSubmit }) {
             icon={<Target size={19} />}
             title="Who are you looking for?"
             helper="Target Prospect & Geo"
+            placeholder="e.g. Restaurants in Lagos"
             value={form.targetCustomer}
             onChange={(value) => update('targetCustomer', value)}
           />
@@ -54,6 +56,7 @@ export default function SetupPage({ form, update, onSubmit }) {
             <Field
               icon={<UserRound size={19} />}
               title="Your name"
+              placeholder="Your name"
               value={form.name}
               onChange={(value) => update('name', value)}
               compact
@@ -61,6 +64,7 @@ export default function SetupPage({ form, update, onSubmit }) {
             <Field
               icon={<Phone size={19} />}
               title="Your phone number"
+              placeholder="+234 800 000 0000"
               value={form.phone}
               onChange={(value) => update('phone', value)}
               compact
