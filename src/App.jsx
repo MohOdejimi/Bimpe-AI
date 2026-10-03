@@ -39,7 +39,7 @@ export default function App() {
       <Header />
 
       <main className="page-main">
-        <Routes>
+                <Routes>
           <Route
             path={ROUTES.setup}
             element={
@@ -52,7 +52,7 @@ export default function App() {
               />
             }
           />
-                    <Route
+          <Route
             path={ROUTES.scouting}
             element={
               <ScoutingPage
@@ -62,7 +62,7 @@ export default function App() {
               />
             }
           />
-                    <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/leads/:id" element={<LeadDetailsPage />} />
           <Route path="*" element={<Navigate to={ROUTES.setup} replace />} />
         </Routes>

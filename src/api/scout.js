@@ -1,7 +1,7 @@
 import { request } from './client.js';
 
 export function startScout(form) {
-  return request('/api/scout/start', {
+  return request('/api/scout', {
     method: 'POST',
     body: JSON.stringify(form),
   });
