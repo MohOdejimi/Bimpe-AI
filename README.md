@@ -1,64 +1,60 @@
-# AI Sales Scout — Frontend
+# Oja Frontend
 
-A responsive React frontend for **AI Sales Scout**, built to help users set up and launch an AI-powered business prospecting/scouting workflow.
+A responsive React frontend for **Oja**, built to help users set up and launch an AI-powered business prospecting workflow.
 
-Built with **React, Vite, and Tailwind CSS**, based on the supplied Scout Setup reference.
+Built with **React, Vite and React Router**. Frontend only, no backend or auth needed to run.
 
-## Features
-
-* High-fidelity Scout Setup interface based on the supplied reference
-* Responsive navigation, header, and footer
-* Editable business setup form
-* High Buyer Propensity toggle
-* Scout launch interaction and scouting screen
-* Clean frontend-only architecture
-* No authentication required
-* No backend dependency
-
-## Getting Started
-
-### Installation
+## Getting started
 
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-Open the Vite URL displayed in your terminal.
+Open the URL Vite prints in your terminal. To make a production build:
 
-## Backend Integration
+```bash
+npm run build
+npm run preview
+```
 
-The setup form currently uses React state and is ready to be connected to a backend endpoint:
+## Project structure
+
+```
+src/
+  main.jsx            entry point (router + styles)
+  App.jsx             routes and shared form state
+  constants.js        brand name, routes, default form values
+  components/
+    Header.jsx
+    Footer.jsx
+    NavItem.jsx
+    EngineTag.jsx
+    Field.jsx
+    Switch.jsx
+  pages/
+    SetupPage.jsx     "/"
+    ScoutingPage.jsx  "/scouting"
+  styles/
+    index.css
+```
+
+## Backend integration
+
+The setup form uses React state and is ready to be connected to an endpoint:
 
 ```http
 POST /api/scout/start
 ```
-
-Example request body:
 
 ```json
 {
   "name": "Chizu",
   "whatTheySell": "Websites for restaurants",
   "targetCustomer": "Restaurants in Lagos",
-  "phone": "+234 812 345 6789"
+  "phone": "+234 812 345 6789",
+  "highIntentOnly": true
 }
 ```
 
-The frontend does not currently require this backend endpoint to run.
-
-## Tech Stack
-
-* React
-* Vite
-* Tailwind CSS
-* JavaScript
-
-## Project Scope
-
-This repository contains the **frontend implementation** for the AI Sales Scout setup and scouting experience.
+Call it from `startScout` in `src/App.jsx`.
