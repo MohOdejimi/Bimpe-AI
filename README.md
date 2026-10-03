@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Sales Scout — Frontend
 
 React + Vite + Tailwind CSS frontend based on the supplied Scout Setup reference.
@@ -37,3 +38,7 @@ with:
   "phone": "+234 812 345 6789"
 }
 ```
+=======
+"# Bimpe-AI" 
+"# Bimpe-AI" 
+>>>>>>> b4a825d2b04b22978dc07ae9b1d5953b0104945d
