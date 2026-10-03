@@ -1,44 +1,60 @@
-<<<<<<< HEAD
-# AI Sales Scout — Frontend
+# Oja Frontend
 
-React + Vite + Tailwind CSS frontend based on the supplied Scout Setup reference.
+A responsive React frontend for **Oja**, built to help users set up and launch an AI-powered business prospecting workflow.
 
-## Included
+Built with **React, Vite and React Router**. Frontend only, no backend or auth needed to run.
 
-- High-fidelity Scout Setup screen matching the supplied image
-- Responsive navigation/header/footer
-- Editable business setup form
-- High Buyer Propensity toggle
-- Start Scout interaction
-- Scouting screen owned by the frontend setup/scouting scope
-- No authentication and no backend dependency
-
-## Run
+## Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the Vite URL shown in the terminal.
+Open the URL Vite prints in your terminal. To make a production build:
 
-## Backend hook
+```bash
+npm run build
+npm run preview
+```
 
-The setup form is kept in React state so it can later be connected to:
+## Project structure
 
-`POST /api/scout/start`
+```
+src/
+  main.jsx            entry point (router + styles)
+  App.jsx             routes and shared form state
+  constants.js        brand name, routes, default form values
+  components/
+    Header.jsx
+    Footer.jsx
+    NavItem.jsx
+    EngineTag.jsx
+    Field.jsx
+    Switch.jsx
+  pages/
+    SetupPage.jsx     "/"
+    ScoutingPage.jsx  "/scouting"
+  styles/
+    index.css
+```
 
-with:
+## Backend integration
+
+The setup form uses React state and is ready to be connected to an endpoint:
+
+```http
+POST /api/scout/start
+```
 
 ```json
 {
   "name": "Chizu",
   "whatTheySell": "Websites for restaurants",
   "targetCustomer": "Restaurants in Lagos",
-  "phone": "+234 812 345 6789"
+  "phone": "+234 812 345 6789",
+  "highIntentOnly": true
 }
 ```
-=======
-"# Bimpe-AI" 
-"# Bimpe-AI" 
->>>>>>> b4a825d2b04b22978dc07ae9b1d5953b0104945d
+
+Form fields start empty and show placeholders. API calls live in `src/api/`. Set the backend URL in `.env` (see `.env.example`).

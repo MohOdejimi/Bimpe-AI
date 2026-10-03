@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertCircle, ArrowUpRight, Flame, Inbox, Loader2, Target, Timer } from 'lucide-react';
-import { getLeads, timeAgo } from '../api';
+import { getLeads, timeAgo } from '../api/leads.js';
 
 export default function DashboardPage() {
   const [leads, setLeads] = useState([]);

@@ -9,8 +9,8 @@ import {
   Loader2,
   MessageSquareText,
 } from 'lucide-react';
-import { getLeadById, updateLeadStatus } from '../api';
-import { IntentBadge } from './DashboardPage';
+import { getLeadById, updateLeadStatus } from '../api/leads.js';
+import { IntentBadge } from './DashboardPage.jsx';
 
 export default function LeadDetailsPage() {
   const { id } = useParams();

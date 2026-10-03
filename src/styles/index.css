@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-@import 'tailwindcss';
-
 :root {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #101529;
@@ -149,6 +146,8 @@ a { color: inherit; text-decoration: none; }
   .footer-right { width:100%; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 }
 
+.form-error { margin: 0; color: #d92d20; font-size: 13px; text-align: center; }
+.start-button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 /* ---------- Dashboard / Lead Details (Widad) ---------- */
 .dashboard-stage, .detail-stage { flex:1; display:flex; flex-direction:column; align-items:center; padding:48px 20px 56px; }
 .dashboard-head { text-align:center; margin:22px 0 8px; }
