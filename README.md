@@ -1,33 +1,45 @@
 # AI Sales Scout — Frontend
 
-React + Vite + Tailwind CSS frontend based on the supplied Scout Setup reference.
+A responsive React frontend for **AI Sales Scout**, built to help users set up and launch an AI-powered business prospecting/scouting workflow.
 
-## Included
+Built with **React, Vite, and Tailwind CSS**, based on the supplied Scout Setup reference.
 
-- High-fidelity Scout Setup screen matching the supplied image
-- Responsive navigation/header/footer
-- Editable business setup form
-- High Buyer Propensity toggle
-- Start Scout interaction
-- Scouting screen owned by the frontend setup/scouting scope
-- No authentication and no backend dependency
+## Features
 
-## Run
+* High-fidelity Scout Setup interface based on the supplied reference
+* Responsive navigation, header, and footer
+* Editable business setup form
+* High Buyer Propensity toggle
+* Scout launch interaction and scouting screen
+* Clean frontend-only architecture
+* No authentication required
+* No backend dependency
+
+## Getting Started
+
+### Installation
 
 ```bash
 npm install
+```
+
+### Development
+
+```bash
 npm run dev
 ```
 
-Open the Vite URL shown in the terminal.
+Open the Vite URL displayed in your terminal.
 
-## Backend hook
+## Backend Integration
 
-The setup form is kept in React state so it can later be connected to:
+The setup form currently uses React state and is ready to be connected to a backend endpoint:
 
-`POST /api/scout/start`
+```http
+POST /api/scout/start
+```
 
-with:
+Example request body:
 
 ```json
 {
@@ -37,3 +49,16 @@ with:
   "phone": "+234 812 345 6789"
 }
 ```
+
+The frontend does not currently require this backend endpoint to run.
+
+## Tech Stack
+
+* React
+* Vite
+* Tailwind CSS
+* JavaScript
+
+## Project Scope
+
+This repository contains the **frontend implementation** for the AI Sales Scout setup and scouting experience.
