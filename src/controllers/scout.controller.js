@@ -27,7 +27,7 @@ export const startScout = async (req, res) => {
     );
 
     // 2. Discover candidate posts
-    const candidatePosts = await findOpportunities();
+    const candidatePosts = await findOpportunities(business);
 
     const savedLeads = [];
 

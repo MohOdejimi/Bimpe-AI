@@ -1,29 +1,34 @@
-/**
- * DISCOVERY SERVICE
- * 
- * Searches public social/web sources for posts showing buying intent.
- */
+import { searchDemoSource } from "./demoDiscovery.source.js";
 
-/**
- * Finds candidate public posts.
- * 
- * TODO: Implement discovery logic to return candidate post objects.
- * Expected post structure:
- * {
- *   source: "Facebook",
- *   text: "Does anyone know a developer that can build a website for my restaurant in Lagos?",
- *   location: "Lagos",
- *   url: "https://facebook.com/example-post",
- *   postedAt: "18 minutes ago"
- * }
- * 
- * @returns {Promise<Array>} List of candidate post objects
- */
-export const findOpportunities = async () => {
-  // TODO: Add discovery logic or candidate posts here
-  return [];
-};
+async function findOpportunities(searchProfile) {
+  if (!searchProfile?.whatTheySell && !searchProfile?.product) {
+    throw new Error("whatTheySell or product is required");
+  }
 
-export default {
+  if (!searchProfile?.targetCustomer) {
+    throw new Error("targetCustomer is required");
+  }
+
+  try {
+    const rawOpportunities = await searchDemoSource({
+      ...searchProfile,
+      product: searchProfile.product ?? searchProfile.whatTheySell,
+    });
+
+    return rawOpportunities.map((post) => ({
+      ...post,
+      source: post.source ?? post.platform,
+      url: post.url ?? post.link,
+      location: post.location ?? searchProfile.location ?? "",
+      postedAt: post.postedAt ?? post.created_at,
+    }));
+  } catch (error) {
+    console.error("Discovery failed:", error);
+
+    throw new Error("Unable to discover opportunities");
+  }
+}
+
+export {
   findOpportunities,
 };
