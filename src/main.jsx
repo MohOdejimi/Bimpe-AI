@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Link, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import DashboardPage from './pages/DashboardPage';
+import LeadDetailsPage from './pages/LeadDetailsPage';
 import {
   Activity,
   BrainCircuit,
@@ -38,12 +40,9 @@ function App() {
 }
 
 function SalesScoutApp() {
-  const location = useLocation();
   const navigate = useNavigate();
   const [form, setForm] = useState(DEFAULT_FORM);
   const [scouting, setScouting] = useState(false);
-
-  const isScouting = location.pathname === '/scouting' || scouting;
 
   const update = (key, value) => setForm((current) => ({ ...current, [key]: value }));
 
@@ -63,11 +62,31 @@ function SalesScoutApp() {
       <Header />
 
       <main className="page-main">
-        {isScouting ? (
-          <ScoutingPage form={form} onBack={resetScout} />
-        ) : (
-          <SetupPage form={form} update={update} onSubmit={startScout} />
-        )}
+        <Routes>
+          <Route
+            path="/"
+            element={<SetupPage form={form} update={update} onSubmit={startScout} />}
+          />
+          <Route
+            path="/scouting"
+            element={
+              <ScoutingPage
+                form={form}
+                onBack={resetScout}
+                onViewOpportunities={() => {
+                  setScouting(false);
+                  navigate('/dashboard');
+                }}
+              />
+            }
+          />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/leads/:id" element={<LeadDetailsPage />} />
+          <Route
+            path="*"
+            element={<SetupPage form={form} update={update} onSubmit={startScout} />}
+          />
+        </Routes>
       </main>
 
       <Footer />
@@ -77,7 +96,12 @@ function SalesScoutApp() {
 
 function Header() {
   const location = useLocation();
-  const active = location.pathname === '/scouting' ? 'Live Scouting' : 'Scout Setup';
+  const active =
+    location.pathname === '/scouting'
+      ? 'Live Scouting'
+      : location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/leads')
+        ? 'Pipeline'
+        : 'Scout Setup';
 
   return (
     <header className="topbar">
@@ -94,10 +118,10 @@ function Header() {
       </div>
 
       <nav className="main-nav" aria-label="Main navigation">
-        <NavItem to="/" label="Overview" active={false} />
+        <NavItem to="/" label="Overview" active={active === 'Scout Setup'} />
         <NavItem to="/scouting" label="Live Scouting" active={active === 'Live Scouting'} />
-        <NavItem to="/" label="Scout Setup" active={active === 'Scout Setup'} />
-        <NavItem to="/" label="Pipeline" active={false} />
+        <NavItem to="/" label="Scout Setup" active={false} />
+        <NavItem to="/dashboard" label="Pipeline" active={active === 'Pipeline'} />
       </nav>
 
       <button className="profile-button" aria-label="Profile">
@@ -245,7 +269,7 @@ function Field({ icon, title, helper, value, onChange, compact = false, type = '
   );
 }
 
-function ScoutingPage({ form, onBack }) {
+function ScoutingPage({ form, onBack, onViewOpportunities }) {
   return (
     <section className="scouting-stage">
       <div className="engine-tag">
@@ -293,7 +317,7 @@ function ScoutingPage({ form, onBack }) {
           <button type="button" className="secondary-button" onClick={onBack}>
             Back to Setup
           </button>
-          <button type="button" className="start-button" onClick={onBack}>
+          <button type="button" className="start-button" onClick={onViewOpportunities}>
             <Rocket size={20} />
             View Opportunities
           </button>
