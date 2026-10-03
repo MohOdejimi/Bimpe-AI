@@ -1,46 +1,37 @@
-"""
-FLASK AI MICROSERVICE
-
-Exposes POST /analyze to evaluate candidate posts for buying intent.
-"""
-
-import os
 from flask import Flask, request, jsonify
-from flask_cors import CORS
-from dotenv import load_dotenv
-from analyzer import analyze_opportunity
-
-load_dotenv()
+from analyzer import analyze_lead
 
 app = Flask(__name__)
-CORS(app)
 
-PORT = int(os.getenv("PORT", 8000))
 
-@app.route('/', methods=['GET'])
-def health_check():
-    return jsonify({
-        "status": "online",
-        "service": "AI Microservice"
-    })
-
-@app.route('/analyze', methods=['POST'])
+@app.route("/analyze", methods=["POST"])
 def analyze():
-    """
-    POST /analyze
-    Input payload:
-      {
-        "post": { "text": "...", "location": "..." },
-        "business": { "whatTheySell": "...", "targetCustomer": "..." }
-      }
-    """
-    data = request.get_json() or {}
-    post = data.get('post', {})
-    business = data.get('business', {})
-    
-    # TODO: Pass payload to analyzer and return structured JSON result
-    result = analyze_opportunity(post, business)
-    return jsonify(result)
+    data = request.get_json()
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    text = data.get("text", "")
+    location = data.get("location", "")
+
+    if not text:
+        return jsonify({
+            "error": "Lead text is required"
+        }), 400
+
+    try:
+        result = analyze_lead(text, location)
+
+        return jsonify({
+            "success": True,
+            "result": result
+        })
+
+    except Exception as e:
+        print("ERROR:", e)
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
