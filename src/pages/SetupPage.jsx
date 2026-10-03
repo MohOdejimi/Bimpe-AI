@@ -16,7 +16,7 @@ import EngineTag from '../components/EngineTag.jsx';
 import Field from '../components/Field.jsx';
 import Switch from '../components/Switch.jsx';
 
-export default function SetupPage({ form, update, onSubmit }) {
+export default function SetupPage({ form, update, onSubmit, loading, error }) {
   return (
     <section className="setup-stage">
       <EngineTag />
@@ -87,9 +87,11 @@ export default function SetupPage({ form, update, onSubmit }) {
             />
           </div>
 
-          <button type="submit" className="start-button">
+          {error ? <p className="form-error">{error}</p> : null}
+
+          <button type="submit" className="start-button" disabled={loading}>
             <Rocket size={21} strokeWidth={2.2} />
-            START SCOUT
+            {loading ? 'STARTING...' : 'START SCOUT'}
           </button>
         </form>
 

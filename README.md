@@ -57,4 +57,4 @@ POST /api/scout/start
 }
 ```
 
-Form fields start empty and show placeholders. Call it from `startScout` in `src/App.jsx`.
+Form fields start empty and show placeholders. API calls live in `src/api/`. Set the backend URL in `.env` (see `.env.example`).
